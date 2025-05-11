@@ -124,7 +124,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
     });
   }
 
-  void checkGuess() {
+  Future<void> checkGuess() async {
     String guess = board[currentRow].join();
 
     if (!turkceKelimeler.contains(guess)) {
@@ -180,6 +180,11 @@ class _WordleHomePageState extends State<WordleHomePage> {
 
     if (guess == secretWord) {
       score += (maxAttempts - currentRow) * 10;
+      final prefs = await SharedPreferences.getInstance();
+      int storedHighScore = prefs.getInt('highestScore') ?? 0;
+      if (score > storedHighScore) {
+        await prefs.setInt('highestScore', score);
+      }
       //istatistikleri kaydet
       _updateStatistics(true);
       showEndDialog(true);
@@ -297,14 +302,15 @@ class _WordleHomePageState extends State<WordleHomePage> {
       } else if (key == 'ENTER') {
         if (currentCol == columns) {
           checkGuess();
-          currentCol = 0;
         } else {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("5 harf girilmedi!")));
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text("Lütfen 5 harfli bir kelime girin.")),
+            );
         }
       } else {
-        if (currentCol < columns && currentRow < rows) {
+        if (currentCol < columns) {
           board[currentRow][currentCol] = key;
           currentCol++;
         }

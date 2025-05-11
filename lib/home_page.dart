@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage>
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.black, Colors.deepPurple],
             begin: Alignment.topCenter,
