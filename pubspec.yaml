@@ -34,6 +34,7 @@ dependencies:
   fl_chart: ^0.64.0
   shared_preferences: ^2.2.2
   audioplayers: ^5.2.1
+  lottie: ^3.0.0
 
 
 
@@ -63,6 +64,7 @@ flutter:
     - assets/images/
     - assets/audios/successful.mp3
     - assets/audios/game_over.mp3
+    - assets/animations/wordle.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

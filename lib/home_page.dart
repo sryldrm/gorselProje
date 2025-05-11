@@ -73,8 +73,8 @@ class _HomePageState extends State<HomePage>
                 child: Text(
                   'WORDLE',
                   style: TextStyle(
-                    fontFamily: 'PressStart2P',
-                    fontSize: 20,
+                    //fontFamily: 'PressStart2P',
+                    fontSize: 30,
                     color: theme.colorScheme.primary,
                     letterSpacing: 2,
                   ),

@@ -283,7 +283,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
     );
     boardColors = List.generate(
       maxAttempts,
-      (index) => List.generate(5, (index) => Colors.grey[850]!),
+      (index) => List.generate(5, (index) => Colors.white),
     );
     currentRow = 0;
     currentCol = 0;
@@ -346,6 +346,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
       focusNode: focusNode,
       onKey: handleKeyEvent,
       child: Scaffold(
+        //backgroundColor: theme.colorScheme.onPrimary,
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 2,
@@ -365,7 +366,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
           centerTitle: true,
           actions: [
             IconButton(
-              icon: const Icon(Icons.bar_chart, color: Colors.green),
+              icon: const Icon(Icons.bar_chart, color: Colors.black),
               onPressed: () {
                 Navigator.push(
                   context,
