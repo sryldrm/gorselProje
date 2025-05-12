@@ -65,6 +65,7 @@ flutter:
     - assets/audios/successful.mp3
     - assets/audios/game_over.mp3
     - assets/animations/wordle.json
+    - assets/animations/animation.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

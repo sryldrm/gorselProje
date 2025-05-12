@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 12), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
@@ -26,28 +26,32 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.asset(
-              'assets/animations/wordle.json',
-              width: 200,
-              height: 200,
-              fit: BoxFit.contain,
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Yükleniyor...',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                letterSpacing: 1.2,
+      backgroundColor: theme.colorScheme.onPrimary,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset(
+                'assets/animations/animation.json',
+                width: 300,
+                height: 600,
+                fit: BoxFit.contain,
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              const Text(
+                'Yükleniyor...',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
