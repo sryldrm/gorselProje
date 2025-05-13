@@ -38,10 +38,6 @@ class _WordleHomePageState extends State<WordleHomePage> {
     6,
     (_) => List.generate(5, (_) => ''),
   );
-  /*List<List<Color>> boardColors = List.generate(
-    6,
-    (_) => List.generate(5, (_) => Colors.grey[850]!),
-  );*/
 
   late List<List<Color>> boardColors;
 
@@ -77,7 +73,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
 
   void _initializeKeyboardColors() {
     for (final key in keyColors.keys) {
-      keyColors[key] = Colors.grey[800]!;
+      keyColors[key] = Colors.white;
     }
     final allLetters = <String>{
       'Q',
@@ -114,10 +110,10 @@ class _WordleHomePageState extends State<WordleHomePage> {
       'Ç',
     };
     for (final letter in allLetters) {
-      keyColors[letter] = Colors.grey[800]!;
+      keyColors[letter] = Colors.white;
     }
-    keyColors['ENTER'] = Colors.grey[800]!;
-    keyColors['DEL'] = Colors.grey[800]!;
+    keyColors['ENTER'] = Colors.white;
+    keyColors['DEL'] = Colors.white;
   }
 
   @override

@@ -99,8 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   value: _playSounds,
                   onChanged: _toggleSound,
-                  activeColor:
-                      theme.colorScheme.primary, // Use primary color from theme
+                  activeColor: theme.colorScheme.primary,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 ),
               ),
@@ -121,10 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color:
-                            theme
-                                .colorScheme
-                                .primary, // Use primary color from theme
+                        color: theme.colorScheme.primary,
                       ),
                     ),
                     const Divider(thickness: 1, color: Colors.amber),
@@ -137,8 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         style: TextStyle(fontSize: 16),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.purple, // Keep red for destructive action
+                        backgroundColor: Colors.purple,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
@@ -156,7 +151,7 @@ class _SettingsPageState extends State<SettingsPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: theme.colorScheme.onSurface, // Use onSurface color
+                color: theme.colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 8),
@@ -164,13 +159,13 @@ class _SettingsPageState extends State<SettingsPage> {
               'Bu basit Wordle oyunu Flutter ile geliştirilmiştir.',
               style: TextStyle(
                 fontSize: 14,
-                color: theme.colorScheme.onSurface, // Use onSurface color
+                color: theme.colorScheme.onSurface,
               ),
             ),
-            const SizedBox(height: 20), // Add some space before the text
+            const SizedBox(height: 20),
             Center(
               child: Text(
-                "BUG'S FUNNY Üretimidir", // Add the text here
+                "BUG'S FUNNY Üretimidir",
                 style: TextStyle(
                   fontSize: 20,
                   color: theme.colorScheme.onSurface,
