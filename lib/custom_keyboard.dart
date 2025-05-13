@@ -51,7 +51,7 @@ class CustomKeyboard extends StatelessWidget {
     ];
 
     return Container(
-      color: Colors.black, // Klavye arka planı siyah
+      color: Theme.of(context).colorScheme.onPrimary, // Klavye arka planı siyah
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -73,7 +73,7 @@ class CustomKeyboard extends StatelessWidget {
           letters.map((letter) {
             final bool isSpecialKey = (letter == 'ENTER' || letter == 'DEL');
             final int flex = isSpecialKey ? 15 : 10;
-            final buttonColor = keyboardColors?[letter] ?? Colors.grey[800]!;
+            final buttonColor = keyboardColors?[letter] ?? Colors.white;
 
             return Expanded(
               flex: flex,
@@ -84,7 +84,7 @@ class CustomKeyboard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(40, 58),
                     backgroundColor: buttonColor, // Tuş rengi
-                    foregroundColor: Colors.white, // Yazı rengi
+                    foregroundColor: Colors.black, // Yazı rengi
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),

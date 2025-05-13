@@ -28,6 +28,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
   int gamesWon = 0;
   int highestScore = 0;
   bool playSounds = true;
+  bool _isInitialized = false;
 
   FocusNode focusNode = FocusNode();
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -36,10 +37,12 @@ class _WordleHomePageState extends State<WordleHomePage> {
     6,
     (_) => List.generate(5, (_) => ''),
   );
-  List<List<Color>> boardColors = List.generate(
+  /*List<List<Color>> boardColors = List.generate(
     6,
     (_) => List.generate(5, (_) => Colors.grey[850]!),
-  );
+  );*/
+
+  late List<List<Color>> boardColors;
 
   Map<String, Color> keyColors = {};
   String secretWord = "KAVUN";
@@ -47,16 +50,19 @@ class _WordleHomePageState extends State<WordleHomePage> {
   @override
   void initState() {
     super.initState();
-    if (widget.shouldReset) {
-      resetGame();
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context, true);
+    // Diğer başlangıç işlemleri
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        boardColors = List.generate(
+          maxAttempts,
+          (_) => List.generate(
+            columns,
+            (_) => Theme.of(context).colorScheme.primary,
+          ),
+        );
+        _isInitialized = true;
       });
-    } else {
-      _initializeKeyboardColors();
-      startNewGame();
-      focusNode.requestFocus();
-    }
+    });
   }
 
   void _initializeKeyboardColors() {
@@ -118,7 +124,10 @@ class _WordleHomePageState extends State<WordleHomePage> {
       );
       boardColors = List.generate(
         maxAttempts,
-        (_) => List.generate(columns, (_) => Colors.grey[850]!),
+        (_) => List.generate(
+          columns,
+          (_) => Theme.of(context).colorScheme.primary,
+        ),
       );
       _initializeKeyboardColors();
     });
@@ -262,7 +271,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
       board = List.generate(rows, (_) => List.filled(columns, ''));
       boardColors = List.generate(
         rows,
-        (_) => List.filled(columns, Colors.grey),
+        (_) => List.filled(columns, Theme.of(context).colorScheme.primary),
       );
       _initializeKeyboardColors();
       secretWord = (turkceKelimeler..shuffle()).first;
@@ -342,13 +351,14 @@ class _WordleHomePageState extends State<WordleHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return RawKeyboardListener(
       focusNode: focusNode,
       onKey: handleKeyEvent,
       child: Scaffold(
-        //backgroundColor: theme.colorScheme.onPrimary,
+        backgroundColor: theme.colorScheme.onPrimary,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: theme.colorScheme.primary,
           elevation: 2,
           title: Text(
             'Wordle - Skor: $score',
