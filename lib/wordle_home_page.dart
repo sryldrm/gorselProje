@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/custom_keyboard.dart';
 import 'package:wordle/home_page.dart';
@@ -50,8 +51,17 @@ class _WordleHomePageState extends State<WordleHomePage> {
   @override
   void initState() {
     super.initState();
-    // Diğer başlangıç işlemleri
+
+    if (widget.shouldReset) {
+      resetGame();
+    } else {
+      startNewGame();
+    }
+
+    _loadPreferences();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeKeyboardColors();
       setState(() {
         boardColors = List.generate(
           maxAttempts,
@@ -66,6 +76,9 @@ class _WordleHomePageState extends State<WordleHomePage> {
   }
 
   void _initializeKeyboardColors() {
+    for (final key in keyColors.keys) {
+      keyColors[key] = Colors.grey[800]!;
+    }
     final allLetters = <String>{
       'Q',
       'W',
@@ -242,10 +255,25 @@ class _WordleHomePageState extends State<WordleHomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(hasWon ? 'Tebrikler 🎉' : 'Oyun Bitti 😢'),
-          content: Text(
-            hasWon
-                ? "Doğru kelimeyi buldun! \nSkor: $score"
-                : "Doğru kelime: $secretWord. \nSkor: $score",
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Lottie.asset(
+                hasWon
+                    ? 'assets/animations/win.json'
+                    : 'assets/animations/lose.json',
+                width: 100,
+                height: 150,
+                fit: BoxFit.contain,
+              ),
+              SizedBox(height: 10),
+              Text(
+                hasWon
+                    ? "Doğru kelimeyi buldun! \nSkor: $score"
+                    : "Doğru kelime: $secretWord. \nSkor: $score",
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
           actions: [
             TextButton(
@@ -268,6 +296,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
   void startNewRound() async {
     setState(() {
       currentRow = 0;
+      currentCol = 0;
       board = List.generate(rows, (_) => List.filled(columns, ''));
       boardColors = List.generate(
         rows,
@@ -283,6 +312,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
     await prefs.setInt('gamesPlayed', 0);
     await prefs.setInt('wins', 0);
     await prefs.setInt('bestTry', 0);
+    await prefs.setInt('highestScore', 0);
     for (int i = 0; i < 6; i++) {
       await prefs.setInt('try_$i', 0);
     }

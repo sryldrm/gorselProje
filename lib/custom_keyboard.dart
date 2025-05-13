@@ -51,7 +51,7 @@ class CustomKeyboard extends StatelessWidget {
     ];
 
     return Container(
-      color: Theme.of(context).colorScheme.onPrimary, // Klavye arka planı siyah
+      color: Theme.of(context).colorScheme.onPrimary,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -73,7 +73,8 @@ class CustomKeyboard extends StatelessWidget {
           letters.map((letter) {
             final bool isSpecialKey = (letter == 'ENTER' || letter == 'DEL');
             final int flex = isSpecialKey ? 15 : 10;
-            final buttonColor = keyboardColors?[letter] ?? Colors.white;
+            final buttonColor =
+                keyboardColors?[letter] ?? Colors.white; // Eğer null ise beyaz
 
             return Expanded(
               flex: flex,
