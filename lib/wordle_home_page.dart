@@ -47,6 +47,7 @@ class _WordleHomePageState extends State<WordleHomePage> {
   @override
   void initState() {
     super.initState();
+    focusNode.requestFocus();
 
     if (widget.shouldReset) {
       resetGame();
@@ -355,16 +356,40 @@ class _WordleHomePageState extends State<WordleHomePage> {
 
   void handleKeyEvent(RawKeyEvent event) {
     if (event is RawKeyDownEvent) {
-      String keyLabel = event.logicalKey.keyLabel.toUpperCase();
+      final character = event.character;
 
-      if (keyLabel == 'ENTER') {
+      if (character == null || character.isEmpty) return;
+
+      final normalizedChar = _normalizeTurkishKey(character);
+
+      if (event.logicalKey == LogicalKeyboardKey.enter) {
         onKeyTap('ENTER');
       } else if (event.logicalKey == LogicalKeyboardKey.backspace) {
         onKeyTap('DEL');
-      } else if (keyLabel.length == 1 &&
-          RegExp(r'^[A-ZÇĞİÖŞÜa-zçğıöşü]$').hasMatch(keyLabel)) {
-        onKeyTap(keyLabel);
+      } else if (RegExp(r'^[A-ZÇĞİÖŞÜ]$').hasMatch(normalizedChar)) {
+        onKeyTap(normalizedChar);
       }
+    }
+  }
+
+  String _normalizeTurkishKey(String key) {
+    switch (key) {
+      case 'i':
+        return 'İ';
+      case 'ı':
+        return 'I';
+      case 'ş':
+        return 'Ş';
+      case 'ğ':
+        return 'Ğ';
+      case 'ü':
+        return 'Ü';
+      case 'ö':
+        return 'Ö';
+      case 'ç':
+        return 'Ç';
+      default:
+        return key.toUpperCase();
     }
   }
 
@@ -386,9 +411,12 @@ class _WordleHomePageState extends State<WordleHomePage> {
         appBar: AppBar(
           backgroundColor: theme.colorScheme.primary,
           elevation: 2,
-          title: Text(
-            'Wordle - Skor: $score',
-            style: const TextStyle(color: Colors.black),
+          title: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              'Wordle - Skor: $score',
+              style: const TextStyle(color: Colors.black),
+            ),
           ),
           leading: IconButton(
             icon: const Icon(Icons.home, color: Colors.black),
